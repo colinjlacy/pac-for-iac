@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    github = {
+      source  = "opentofu/github"
+      version = "~> 6.0"
+    }
+  }
+}
+
 provider "github" {
   owner = "open-garlic"
 }
