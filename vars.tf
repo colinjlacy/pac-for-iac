@@ -4,4 +4,5 @@ variable "passphrase" {
 
 variable "org" {
   type = string
+  default = "open-garlic"
 }
