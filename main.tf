@@ -11,11 +11,6 @@ resource "github_branch" "garlic_kitchen" {
   repository = github_repository.garlic.name
 }
 
-resource "github_branch" "garlic_kitchen" {
-  branch     = "kitchen"
-  repository = github_repository.garlic.name
-}
-
 resource "github_branch_default" "garlic_kitchen" {
   branch     = github_branch.garlic_kitchen.branch
   repository = github_repository.garlic.name

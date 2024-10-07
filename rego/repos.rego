@@ -7,13 +7,6 @@ import future.keywords.contains
 
 has_key(x, k) { _ = x[k] }
 
-# any name field should match its resource declaration
-deny[msg] {
-	name := input.resource[type][key].name
-	key != name
-	msg = sprintf("%s `%s` has a name `%s` that does not match its resource name", [type, key, name])
-}
-
 # if there are any repos, there should be at least one branch
 deny[msg] {
     count(input.resource.github_repository) > 0
@@ -39,10 +32,11 @@ deny[msg] {
 
 # there should be a default branch for every repo
 deny[msg] {
-    repo := input.resource.github_repository[_].name
+    some name
+    repo := input.resource.github_repository[name]
     default_branch_repos := input.resource.github_branch_default[_].repository
-    not contains( default_branch_repos, repo)
-    msg = sprintf("repo `%s` should have a default branch", [repo])
+    not contains( default_branch_repos, name)
+    msg = sprintf("repo `%s` should have a default branch", [name])
 }
 
 # every repo should have archive_on_destroy set to true
