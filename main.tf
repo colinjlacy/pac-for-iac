@@ -6,3 +6,12 @@ module "garlic" {
   branch_name = "kitchen"
   members = ["colinjlacy"]
 }
+
+module "onion" {
+  source      = "./modules/github"
+  name        = "onion"
+  description = "Gives garlic that extra boost!"
+  team_name   = "chefs"
+  branch_name = "kitchen"
+  members = ["colinjlacy"]
+}

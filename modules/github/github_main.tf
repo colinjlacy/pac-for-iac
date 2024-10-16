@@ -17,6 +17,7 @@ resource "github_repository" "repo" {
   auto_init = true
   visibility = "public"
   archive_on_destroy = true
+  vulnerability_alerts = true
 }
 
 resource "github_branch" "repo_branch" {
