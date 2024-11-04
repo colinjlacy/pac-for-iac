@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
 import {ResourceService} from "./services/resource-service";
-import {Divider, List, ListItem, ListItemText, Typography} from "@mui/material";
+import {alpha, Divider, List, ListItem, ListItemText, styled, Switch, Typography} from "@mui/material";
 import logo from './opengarlic-logo.jpeg'
 
 const resourceService = new ResourceService()
@@ -13,6 +13,18 @@ export type Resource = {
     allowDelete: boolean,
     module: string
 }
+
+const PinkSwitch = styled(Switch)(({ theme }) => ({
+    '& .MuiSwitch-switchBase.Mui-checked': {
+        color: "#fb44c0",
+        '&:hover': {
+            backgroundColor: alpha("#fb44c0",theme.palette.action.hoverOpacity),
+        },
+    },
+    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+        backgroundColor: "#fb44c0",
+    },
+}));
 
 function App() {
 
@@ -40,8 +52,9 @@ function App() {
         }
     }, [])
 
-    function handleToggle(id: string) {
-        return undefined;
+    async function handleToggle(id: string, e: React.ChangeEvent<HTMLInputElement>) {
+        const val = e.target.checked
+        return await resourceService.patchResource(id, val)
     }
 
     const resourceList = function (resources: Resource[]) {
@@ -56,13 +69,14 @@ function App() {
                                       } secondaryTypographyProps={
                             {variant: "h6", color: "white"}
                         }/>
-                        {/*<Switch*/}
-                        {/*    edge="end"*/}
-                        {/*    onChange={handleToggle(resource._id)}*/}
-                        {/*    inputProps={{*/}
-                        {/*        'aria-labelledby': 'switch-list-label-wifi',*/}
-                        {/*    }}*/}
-                        {/*/>*/}
+                        <PinkSwitch
+                            edge="end"
+                            color={"error"}
+                            onChange={(e) => handleToggle(resource._id, e)}
+                            inputProps={{
+                                'aria-labelledby': 'switch-list-label-wifi',
+                            }}
+                        />
                     </ListItem>
                 </>
             )
@@ -70,7 +84,6 @@ function App() {
     }
 
     const moduleList = Object.keys(mapResources()).map((moduleName: string) => {
-        let checked = ['wifi'];
         return (
             <>
                 <Typography variant={"h4"} sx={{marginTop: "1em"}}>

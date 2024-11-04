@@ -1,0 +1,21 @@
+version: '3.8'
+name: tofu-admin-server
+services:
+  app:
+    image: ghcr.io/colinjlacy/tofu-admin-server:latest
+    environment:
+      - NODE_ENV=development
+      - PORT=8084
+      - MONGO_URI=mongodb://mongo:27017/tofu
+    ports:
+      - "8084:8084"
+
+  mongo:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_DATABASE: tofu
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:

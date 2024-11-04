@@ -6,8 +6,8 @@ export class ResourceService {
         return res.data.resources
     }
 
-    // public async patchResource(id: string): Promise<any> {
-    //     const res = await axios.patch(`http://localhost:8084/resources/${id}/allowDelete`);
-    //     return res.data
-    // }
+    public async patchResource(id: string, val: boolean): Promise<any> {
+        const res = await axios.patch(`http://localhost:8084/resources/${id}/allowDelete`, {allowDelete: val});
+        return res.data
+    }
 }

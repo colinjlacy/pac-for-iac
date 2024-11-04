@@ -28,6 +28,7 @@ function parseResources(state) {
     state.values.root_module.child_modules.forEach(module => {
         module.resources.forEach(resource => {
             resources.push({
+                address: resource.address,
                 type: resource.type,
                 name: findName(resource.values),
                 module: module.address,
