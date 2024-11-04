@@ -29,6 +29,8 @@ const PinkSwitch = styled(Switch)(({ theme }) => ({
 function App() {
 
     const [resources, setResources] = useState([] as Resource[])
+    const [queryParams, setQueryParams] = useState({});
+
     const mapResources = () => {
         const moduleMap: { [key: string]: Resource[] } = {}
         resources.forEach((resource: Resource) => {
@@ -50,6 +52,15 @@ function App() {
         if (!resources.length) {
             fetchData()
         }
+
+        const params = new URLSearchParams(window.location.search);
+
+        const queryParamsObject = {};
+        for (const [key, value] of params.entries()) {
+            queryParamsObject[key] = value;
+        }
+
+        setQueryParams(queryParamsObject);
     }, [])
 
     async function handleToggle(id: string, e: React.ChangeEvent<HTMLInputElement>) {
@@ -69,14 +80,16 @@ function App() {
                                       } secondaryTypographyProps={
                             {variant: "h6", color: "white"}
                         }/>
-                        <PinkSwitch
-                            edge="end"
-                            color={"error"}
-                            onChange={(e) => handleToggle(resource._id, e)}
-                            inputProps={{
-                                'aria-labelledby': 'switch-list-label-wifi',
-                            }}
-                        />
+                        {(queryParams["admin"] === "true") &&
+                            <PinkSwitch
+                                edge="end"
+                                color={"error"}
+                                onChange={(e) => handleToggle(resource._id, e)}
+                                inputProps={{
+                                    'aria-labelledby': 'switch-list-label-wifi',
+                                }}
+                            />
+                        }
                     </ListItem>
                 </>
             )
