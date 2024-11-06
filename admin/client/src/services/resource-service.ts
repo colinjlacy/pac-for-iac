@@ -2,7 +2,7 @@ import axios, {AxiosResponse} from 'axios';
 
 export class ResourceService {
 
-    private adminServiceDomain: string = process.env.ADMIN_SERVICE_DOMAIN ? process.env.ADMIN_SERVICE_DOMAIN : 'localhost:8084';
+    private adminServiceDomain: string = !!process.env.ADMIN_SERVICE_DOMAIN ? process.env.ADMIN_SERVICE_DOMAIN : 'localhost:8084';
     private adminServiceProto: string = !!process.env.ADMIN_SERVICE_PROTO ? process.env.ADMIN_SERVICE_PROTO : 'http';
 
     public async getResources(): Promise<any[]> {

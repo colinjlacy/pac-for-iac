@@ -29,6 +29,7 @@ const PinkSwitch = styled(Switch)(({ theme }) => ({
 function App() {
 
     const [resources, setResources] = useState([] as Resource[])
+    const [resourcesFetched, setResourcesFetched] = useState(false)
     const [queryParams, setQueryParams] = useState({admin: false});
 
     const mapResources = () => {
@@ -47,10 +48,12 @@ function App() {
         async function fetchData() {
             const resources: Resource[] = await resourceService.getResources()
             setResources(resources)
+            setResourcesFetched(true)
         }
 
-        if (!resources.length) {
+        if (!resourcesFetched) {
             fetchData()
+            setResourcesFetched(true)
         }
 
         const params = new URLSearchParams(window.location.search);
@@ -60,7 +63,7 @@ function App() {
         };
 
         setQueryParams(queryParamsObject);
-    }, [])
+    }, [resourcesFetched])
 
     async function handleToggle(id: string, e: React.ChangeEvent<HTMLInputElement>) {
         const val = e.target.checked
@@ -112,6 +115,7 @@ function App() {
     return (
         <div className="App">
             <header className="App-header">
+                {(resourcesFetched && resources.length === 0) ? <Typography variant={"h2"}>No resources found.</Typography> : moduleList}
                 {moduleList}
             </header>
             <img src={logo} style={{position: "fixed", top: "4em", right: "4em", width: "450px", borderRadius: "15px"}}/>

@@ -13,5 +13,5 @@ module "onion" {
   description = "Gives garlic that extra boost!"
   team_name   = "chefs"
   branch_name = "kitchen"
-  members = ["colinjlacy"]
+  members = []
 }
