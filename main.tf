@@ -4,7 +4,7 @@ module "garlic" {
   description = "Next-level awesome for your codebase"
   team_name   = "cooks"
   branch_name = "kitchen"
-  members = ["colinjlacy"]
+  members = ["ringo-ziburat", "gunther-walklein"]
 }
 
 module "onion" {
@@ -13,5 +13,5 @@ module "onion" {
   description = "Gives garlic that extra boost!"
   team_name   = "chefs"
   branch_name = "kitchen"
-  members = ["colinjlacy"]
+  members = ["arvis-harversham"]
 }
