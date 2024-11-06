@@ -116,7 +116,6 @@ function App() {
         <div className="App">
             <header className="App-header">
                 {(resourcesFetched && resources.length === 0) ? <Typography variant={"h2"}>No resources found.</Typography> : moduleList}
-                {moduleList}
             </header>
             <img src={logo} style={{position: "fixed", top: "4em", right: "4em", width: "450px", borderRadius: "15px"}}/>
         </div>
