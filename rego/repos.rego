@@ -26,7 +26,8 @@ deny[msg] {
     some name
     repo := input.resource.github_repository[name]
     branches := input.resource.github_branch[_].repository
-    not contains( branches, name)
+    branch_set := concat(",", branches)
+    not contains( branch_set, name)
     msg = sprintf("repo `%s` should have at least one branch", [name])
 }
 
@@ -35,7 +36,8 @@ deny[msg] {
     some name
     repo := input.resource.github_repository[name]
     default_branch_repos := input.resource.github_branch_default[_].repository
-    not contains( default_branch_repos, name)
+    branch_set := concat(",", default_branch_repos)
+    not contains( branch_set, name)
     msg = sprintf("repo `%s` should have a default branch", [name])
 }
 
