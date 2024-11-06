@@ -29,3 +29,17 @@ resource "github_branch_protection" "garlic_kitchen" {
   }
   enforce_admins = true
 }
+
+resource "github_team_repository" "garlic_cooks" {
+  team_id    = github_team.cooks.id
+  repository = github_repository.garlic.name
+  permission = "admin"
+}
+
+resource "github_team_members" "cooks_membership" {
+  team_id  = github_team.cooks.id
+  members {
+    username = "colinjlacy"
+    role     = "maintainer"
+  }
+}
