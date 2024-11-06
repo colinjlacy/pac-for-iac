@@ -29,7 +29,7 @@ const PinkSwitch = styled(Switch)(({ theme }) => ({
 function App() {
 
     const [resources, setResources] = useState([] as Resource[])
-    const [queryParams, setQueryParams] = useState({});
+    const [queryParams, setQueryParams] = useState({admin: false});
 
     const mapResources = () => {
         const moduleMap: { [key: string]: Resource[] } = {}
@@ -55,10 +55,9 @@ function App() {
 
         const params = new URLSearchParams(window.location.search);
 
-        const queryParamsObject = {};
-        for (const [key, value] of params.entries()) {
-            queryParamsObject[key] = value;
-        }
+        const queryParamsObject: {admin: boolean} = {
+            admin: !!params.get("admin")
+        };
 
         setQueryParams(queryParamsObject);
     }, [])
@@ -80,7 +79,7 @@ function App() {
                                       } secondaryTypographyProps={
                             {variant: "h6", color: "white"}
                         }/>
-                        {(queryParams["admin"] === "true") &&
+                        {(queryParams["admin"]) &&
                             <PinkSwitch
                                 edge="end"
                                 color={"error"}

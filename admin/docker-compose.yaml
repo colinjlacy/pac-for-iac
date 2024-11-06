@@ -1,7 +1,16 @@
 version: '3.8'
 name: tofu-admin-server
 services:
-  app:
+
+  frontend:
+    image: ghcr.io/colinjlacy/tofu-admin-client:latest
+    environment:
+      - ADMIN_SERVICE_DOMAIN=backend
+      - ADMIN_SERVICE_PROTO=http
+    ports:
+      - "8000:80"
+
+  backend:
     image: ghcr.io/colinjlacy/tofu-admin-server:latest
     environment:
       - NODE_ENV=development
